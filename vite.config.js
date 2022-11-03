@@ -4,9 +4,10 @@ import { defineConfig } from 'vite'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue()],
+  base: './',
   build: {
     outDir: 'docs',
-    sourcemap: false
+    sourcemap: true
   },
   server: {
     port: 8080
