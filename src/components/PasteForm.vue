@@ -9,7 +9,7 @@
         <!-- <input @change="fileUpload" class="form-control" placeholder="img" type="file" /> -->
         <UploadButton @uploadComplete="up => editable.img = up.url" />
       </div>
-      <div class="mb-3 col-12">
+      <div class="mb-3 col-12 img-preview d-flex justify-content-center">
         <img :src="editable.img" class="img-fluid" alt="">
       </div>
       <div class="form-floating mb-3 col-12">
@@ -75,5 +75,9 @@ export default {
 <style lang="scss" scoped>
 textarea {
   min-height: 10em;
+}
+
+.img-preview {
+  max-height: 20vh;
 }
 </style>
