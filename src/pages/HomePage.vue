@@ -1,8 +1,13 @@
 <template>
   <div class="container-fluid">
-    <nav class=" p-2 row bg-dark justify-content-center mb-2">
-      <h6 class="w-100"><input class="form-control w-100 h-100" type="text" placeholder="Prompter" v-model="filter">
-      </h6>
+    <nav class=" p-2 row bg-dark justify-content-center mb-2 flex-row">
+      <div class="input-group">
+        <div v-if="sfwFilter" class="btn btn-primary" @click="sfwFilter = false"><i class="mdi mdi-domino-mask"></i>
+        </div>
+        <div v-else class="btn btn-outline-primary" @click="sfwFilter = true"><i class="mdi mdi-domino-mask"></i>
+        </div>
+        <input class="form-control" type="text" placeholder="Prompter" v-model="filter">
+      </div>
     </nav>
     <PromptGrid :prompts="prompts" />
   </div>
@@ -15,15 +20,17 @@ import { logger } from '../utils/Logger.js';
 export default {
   setup() {
     const filter = ref('')
+    const sfwFilter = ref(false)
     return {
       filter,
-      prompts: computed(() => AppState.prompts.filter(p => {
+      sfwFilter,
+      prompts: computed(() => AppState.prompts.filter(p => sfwFilter.value ? !p.positive.match(/nsfw|sex|nipples|pussy/ig) : true).filter(p => {
         const fil = filter.value
         if (!fil) return true
         let strings = fil.split(/,|, /ig).map(s => s.toLowerCase())
         logger.log(strings)
         let tags = p.positiveTags.join('')
-        return strings.every(s => tags.includes(s))
+        return strings.some(s => tags.includes(s))
       }))
     }
   }
