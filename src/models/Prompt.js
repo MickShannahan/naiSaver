@@ -66,7 +66,7 @@ export class Prompt {
     try {
       let first = body.slice(body.indexOf('Size: ') + 6)
       if (first.includes(',')) {
-        let first = first.slice(0, first.indexOf(','))
+        first = first.slice(0, first.indexOf(','))
       }
       this.width = parseInt(first.slice(0, first.indexOf('x')))
       this.height = parseInt(first.slice(first.indexOf('x') + 1))
@@ -79,7 +79,7 @@ export class Prompt {
   SetFirstPass(body) {
     let first = body.slice(body.indexOf('First pass size: ') + 17)
     if (first.includes(',')) {
-      let first = first.slice(0, first.indexOf(','))
+      first = first.slice(0, first.indexOf(','))
     }
     this.firstWidth = parseInt(first.slice(0, first.indexOf('x')))
     this.firstHeight = parseInt(first.slice(first.indexOf('x') + 1))
