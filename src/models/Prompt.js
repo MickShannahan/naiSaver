@@ -63,13 +63,17 @@ export class Prompt {
   }
 
   SetSize(body) {
-    let first = body.slice(body.indexOf('Size: ') + 6)
-    if (first.includes(',')) {
-      let first = first.slice(0, first.indexOf(','))
+    try {
+      let first = body.slice(body.indexOf('Size: ') + 6)
+      if (first.includes(',')) {
+        let first = first.slice(0, first.indexOf(','))
+      }
+      this.width = parseInt(first.slice(0, first.indexOf('x')))
+      this.height = parseInt(first.slice(first.indexOf('x') + 1))
+      return true
+    } catch (error) {
+      logger.log(error)
     }
-    this.width = parseInt(first.slice(0, first.indexOf('x')))
-    this.height = parseInt(first.slice(first.indexOf('x') + 1))
-    return true
   }
 
   SetFirstPass(body) {
@@ -83,7 +87,4 @@ export class Prompt {
   }
 }
 
-let test = `masterpiece, high res, sfw, soft lighting, perfect face, selfie, elf, long hair, pink hair, full lips, thick lips, pink eyes, long eyelashes, no bangs, squinting, curvy, snap - back hat, pink yoga pants, wide hips.thick thighs, hoodie, instagram, snapchat, taut clothing, smug, street scene, raytracing
-Negative prompt: lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality, normal quality, jpeg artifacts, signature, watermark, username, blurry, artist name
-Steps: 45, Sampler: Euler a, CFG scale: 11, Seed: 4278107481, Size: 768x768, Model hash: 925997e9, Denoising strength: 0.6, Clip skip: 2, ENSD: 31337, First pass size: 0x0`
 
