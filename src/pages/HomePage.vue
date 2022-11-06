@@ -1,16 +1,30 @@
 <template>
   <div class="container-fluid">
-    <PromptGrid />
+    <nav class=" p-2 row bg-dark justify-content-center mb-2">
+      <h6 class="w-100"><input class="form-control w-100 h-100" type="text" placeholder="Prompter" v-model="filter">
+      </h6>
+    </nav>
+    <PromptGrid :prompts="prompts" />
   </div>
 </template>
 
 <script>
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { AppState } from '../AppState.js';
+import { logger } from '../utils/Logger.js';
 export default {
   setup() {
+    const filter = ref('')
     return {
-      prompts: computed(() => AppState.prompts)
+      filter,
+      prompts: computed(() => AppState.prompts.filter(p => {
+        const fil = filter.value
+        if (!fil) return true
+        let strings = fil.split(/,|, /ig).map(s => s.toLowerCase())
+        logger.log(strings)
+        let tags = p.positiveTags.join('')
+        return strings.every(s => tags.includes(s))
+      }))
     }
   }
 }
