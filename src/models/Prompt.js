@@ -1,8 +1,10 @@
 import { logger } from "../utils/Logger.js"
 
+const regSplit = /,|, /ig
 
 export class Prompt {
   constructor(data, rawBody = null) {
+    this.rawBody = rawBody
     this.name = data.name
     this.img = data.img
     this.positive = data.positive
@@ -19,9 +21,12 @@ export class Prompt {
     this.firstWidth = data.firstWidth
     this.extras = data.extras
     this.favorite = data.favorite || false
-    if (rawBody) this.convertBody(rawBody)
-    logger.log(this)
+    if (rawBody || data.rawBody) this.convertBody(rawBody || data.rawBody)
+    this.seedId = this.name + this.seed
+    this.positiveTags = this.convertTags(this.positive)
+    this.negativeTags = this.convertTags(this.negative)
   }
+
 
   convertBody(body) {
     this.positive = this.PositivePrompt(body)
@@ -36,6 +41,12 @@ export class Prompt {
       this.denoise = parseFloat(this.GetProperty(body, 'Denoising strength', 'Clip skip'))
       this.SetFirstPass(body)
     }
+  }
+
+  convertTags(prompt) {
+    let tags = prompt.split(regSplit)
+    // TODO more
+    return tags
   }
 
   PositivePrompt(body = '') {
@@ -59,7 +70,7 @@ export class Prompt {
   }
 
   SetFirstPass(body) {
-    let first = body.slice(body.indexOf('First pass size: ') + 18)
+    let first = body.slice(body.indexOf('First pass size: ') + 17)
     let second = first.slice(0, first.indexOf(','))
     this.firstWidth = parseInt(second.slice(0, second.indexOf('x')))
     this.firstHeight = parseInt(second.slice(second.indexOf('x') + 1))

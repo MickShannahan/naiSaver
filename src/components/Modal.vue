@@ -7,8 +7,8 @@
     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-xl" role="document">
       <div class="modal-content bg-dark text-light">
 
-        <div class="modal-body">
-          <slot name="body"></slot>
+        <div class="modal-body p-0">
+          <slot name="body">no body</slot>
         </div>
 
       </div>

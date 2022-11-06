@@ -9,7 +9,7 @@ export const AppState = reactive({
   account: {},
 
   /** @type {import('./models/Prompt.js').Prompt[]} */
-  prompts: loadState('prompts', [Prompt]),
+  prompts: loadState('prompts', [Prompt]).sort(() => Math.random() - .05),
 
   /** @type {import('./models/Prompt.js').Prompt} */
   activePrompt: {}

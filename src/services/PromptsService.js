@@ -9,8 +9,9 @@ class PromptsService {
     AppState.prompts.unshift(newPrompt)
     saveState('prompts', AppState.prompts)
   }
-  deletePrompt() {
-
+  deletePrompt(seedId) {
+    AppState.prompts = AppState.prompts.filter(p => p.seedId != seedId)
+    saveState('prompts', AppState.prompts)
   }
 }
 

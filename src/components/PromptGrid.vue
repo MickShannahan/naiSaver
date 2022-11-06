@@ -1,7 +1,9 @@
 <template>
-  <section class="columns">
+  <section class="brick-grid">
 
-    <Prompt class="grid-item" v-for="p in prompts" :key="p.sampler + p.seed" :prompt="p" />
+    <div :class="`grid-item ${gridSize(p.width, p.height)}`" v-for="p in prompts" :key="p.sampler + p.seed">
+      <Prompt :prompt="p" />
+    </div>
 
   </section>
 </template>
@@ -11,9 +13,15 @@
 import { computed } from 'vue';
 import { AppState } from '../AppState.js';
 export default {
+  props: { prompts: { type: Array } },
   setup() {
     return {
-      prompts: computed(() => AppState.prompts)
+      gridSize(x, y) {
+        if (Math.abs(x - y) <= 180) return 'big'
+        if (x - y > 200) return 'wide'
+        if (y - x > 200) return 'tall'
+        return ''
+      }
     };
   }
 };
@@ -23,11 +31,41 @@ export default {
 <style lang="scss" scoped>
 .columns {
   width: 100%;
-  columns: 400px;
+  columns: 250px;
   gap: 1em;
 }
 
+.brick-grid {
+  display: grid;
+  grid-gap: 15px;
+  grid-template-columns: repeat(auto-fit, minmax(180px, .9fr));
+  grid-auto-rows: minmax(275px, 10%);
+  grid-auto-flow: dense;
+}
+
 .grid-item {
-  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2px;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.wide {
+  grid-column: span 2;
+}
+
+.tall {
+  grid-row: span 2;
+}
+
+.big {
+  grid-column: span 2;
+  grid-row: span 2;
 }
 </style>
