@@ -17,9 +17,9 @@ export default {
   setup() {
     return {
       gridSize(x, y) {
-        if (Math.abs(x - y) <= 180) return 'big'
         if (x - y > 200) return 'wide'
         if (y - x > 200) return 'tall'
+        if (Math.abs(x - y) <= 180) return 'big'
         return ''
       }
     };
