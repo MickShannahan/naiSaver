@@ -79,7 +79,6 @@ export class Prompt {
     }
     this.firstWidth = parseInt(first.slice(0, first.indexOf('x')))
     this.firstHeight = parseInt(first.slice(first.indexOf('x') + 1))
-    logger.log(this.firstWidth, this.firstHeight)
     return true
   }
 }
