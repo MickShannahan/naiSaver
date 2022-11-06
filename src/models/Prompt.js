@@ -25,6 +25,7 @@ export class Prompt {
     this.seedId = this.name + this.seed
     this.positiveTags = this.convertTags(this.positive)
     this.negativeTags = this.convertTags(this.negative)
+    logger.log(this)
   }
 
 
@@ -63,17 +64,22 @@ export class Prompt {
 
   SetSize(body) {
     let first = body.slice(body.indexOf('Size: ') + 6)
-    let second = first.slice(0, first.indexOf(','))
-    this.width = parseInt(second.slice(0, second.indexOf('x')))
-    this.height = parseInt(second.slice(second.indexOf('x') + 1))
+    if (first.includes(',')) {
+      let first = first.slice(0, first.indexOf(','))
+    }
+    this.width = parseInt(first.slice(0, first.indexOf('x')))
+    this.height = parseInt(first.slice(first.indexOf('x') + 1))
     return true
   }
 
   SetFirstPass(body) {
     let first = body.slice(body.indexOf('First pass size: ') + 17)
-    let second = first.slice(0, first.indexOf(','))
-    this.firstWidth = parseInt(second.slice(0, second.indexOf('x')))
-    this.firstHeight = parseInt(second.slice(second.indexOf('x') + 1))
+    if (first.includes(',')) {
+      let first = first.slice(0, first.indexOf(','))
+    }
+    this.firstWidth = parseInt(first.slice(0, first.indexOf('x')))
+    this.firstHeight = parseInt(first.slice(first.indexOf('x') + 1))
+    logger.log(this.firstWidth, this.firstHeight)
     return true
   }
 }
