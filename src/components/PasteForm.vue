@@ -78,7 +78,11 @@ textarea {
 }
 
 .img-preview {
-  max-height: 20vh;
+  max-height: 32vh;
   object-fit: contain;
+
+  img {
+    object-fit: contain;
+  }
 }
 </style>
