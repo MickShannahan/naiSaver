@@ -6,7 +6,7 @@ import { logger } from '../utils/Logger.js';
 //   timeout: 90000,
 // })
 let unblob = axios.create({
-  baseURL: 'https://blobber.azurewibsites.net/',
+  baseURL: 'https://blobber.azurewebsites.net/',
   timeout: 90000,
 })
 class BlobsService {
@@ -14,7 +14,7 @@ class BlobsService {
   async upload(file) {
     let data = await _convertToBlob(file)
     logger.log('formData', data)
-    const res = await unblob.post('api/blobber?container=prompter&fileName=' + file.name.slice(0, file.name.indexOf('.')), data)
+    const res = await unblob.post('api/blobber?container=prompter&fileName=' + file.name, data)
     logger.log(res.data)
     return res.data.url
   }
