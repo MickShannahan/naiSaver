@@ -7,7 +7,7 @@
       </div>
       <div class="mb-3 col-6">
         <!-- <input @change="fileUpload" class="form-control" placeholder="img" type="file" /> -->
-        <UploadButton @uploadComplete="up => editable.img = up.url" />
+        <UploadButton @uploadComplete="uploaded" />
       </div>
       <div class="mb-3 col-12 img-preview d-flex justify-content-center">
         <img :src="editable.img" class="img-fluid" alt="">
@@ -50,21 +50,10 @@ export default {
           editable.value = {}
         }
       },
-      async fileUpload(e) {
-        try {
-          uploading.value = true
-          if (e.target.files.length) {
-            let file = e.target.files[0]
-            logger.log('file', file)
-            const url = await blobsService.upload(file)
-            editable.value.img = url
-          }
-        } catch (e) {
-          Pop.toast(e.message, 'error')
-          logger.error(e)
-        } finally {
-          uploading.value = false
-        }
+      uploaded(data) {
+        editable.value.img = data.url
+        editable.value.smallImg = data.smallUrl
+        editable.value.blurhash = data.blurHash
       }
     }
   }

@@ -38,9 +38,9 @@ export default {
           if (e.target.files.length) {
             let file = e.target.files[0]
             logger.log('file', file)
-            const url = await blobsService.upload(file)
+            const data = await blobsService.upload(file)
             complete.value = true
-            emit('uploadComplete', { url })
+            emit('uploadComplete', data)
           }
         } catch (e) {
           Pop.toast(e.message, 'error')

@@ -68,7 +68,8 @@ export default {
 @import '../assets/scss/main.scss';
 
 .prompt-details {
-  min-height: 55vh;
+  min-height: 68vh;
+  max-height: 95vh;
 }
 
 .blur-fill {

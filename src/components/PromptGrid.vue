@@ -39,7 +39,7 @@ export default {
   display: grid;
   grid-gap: 15px;
   grid-template-columns: repeat(auto-fit, minmax(180px, .9fr));
-  grid-auto-rows: minmax(275px, 10%);
+  grid-auto-rows: 275px;
   grid-auto-flow: dense;
 }
 

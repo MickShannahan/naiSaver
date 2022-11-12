@@ -1,8 +1,8 @@
-@import "./_variables.scss";
 @import "bootstrap";
+@import "./_variables.scss";
 @import "./_overrides.scss";
 @import "./_utilities.scss";
-@import "./loaders.scss";
+@import "./_loaders.scss";
 
 body {
   overscroll-behavior: none;

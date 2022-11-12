@@ -13,10 +13,9 @@ class BlobsService {
 
   async upload(file) {
     let data = await _convertToBlob(file)
-    logger.log('formData', data)
     const res = await unblob.post('api/blobber?container=prompter&fileName=' + file.name, data)
-    logger.log(res.data)
-    return res.data.url
+    // logger.log(res.data)
+    return res.data
   }
 
 }

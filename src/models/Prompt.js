@@ -7,6 +7,8 @@ export class Prompt {
     this.rawBody = rawBody
     this.name = data.name
     this.img = data.img
+    this.smallImg = data.smallImg
+    this.blurhash = data.blurhash || 'UEG+F6n500}@OI-n^6E2R4NMEkKi6eICrrSv'
     this.positive = data.positive
     this.negative = data.negative
     this.sampler = data.sampler
@@ -22,10 +24,10 @@ export class Prompt {
     this.extras = data.extras
     this.favorite = data.favorite || false
     if (rawBody || data.rawBody) this.convertBody(rawBody || data.rawBody)
-    this.seedId = this.name + this.seed
+    this.seedId = this.name.replace(/ /g, '-') + this.seed
     this.positiveTags = this.convertTags(this.positive)
     this.negativeTags = this.convertTags(this.negative)
-    logger.log(this)
+    // logger.log(this)
   }
 
 

@@ -31,7 +31,7 @@ export default {
         logger.log(strings)
         let tags = p.positiveTags.join('')
         return strings.some(s => tags.includes(s))
-      }))
+      }).slice(0, 10))
     }
   }
 }
