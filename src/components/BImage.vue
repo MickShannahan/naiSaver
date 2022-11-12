@@ -58,6 +58,7 @@ export default {
 
   canvas {
     height: 100%;
+    width: 200%;
     opacity: 70%;
 
   }
